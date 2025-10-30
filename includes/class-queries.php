@@ -79,35 +79,8 @@ class ChelseaJobs_Queries {
             $post_id = get_the_ID();
         }
         
-        // Get the linked business (relationship field)
-        $linked_business = get_field('business_name', $post_id);
-        $business_name_text = '';
-        $business_data = array();
-        
-        if ($linked_business && !empty($linked_business)) {
-            $business_post = is_array($linked_business) ? $linked_business[0] : $linked_business;
-            $business_name_text = $business_post->post_title;
-            
-            // Get business data from the linked business listing
-            if (class_exists('BusinessDirectory_Queries')) {
-                $business_data = BusinessDirectory_Queries::get_business_fields($business_post->ID);
-            } else {
-                // Fallback if business directory not available
-                $business_data = array(
-                    'phone' => get_field('phone', $business_post->ID) ?: get_field('business_phone', $business_post->ID),
-                    'email' => get_field('email', $business_post->ID) ?: get_field('business_email', $business_post->ID),
-                    'website' => get_field('website', $business_post->ID) ?: get_field('business_website', $business_post->ID),
-                    'address' => get_field('address', $business_post->ID) ?: get_field('business_address', $business_post->ID),
-                    'logo' => get_field('logo', $business_post->ID) ?: get_field('business_logo', $business_post->ID),
-                    'description' => get_field('description', $business_post->ID) ?: get_field('business_description', $business_post->ID),
-                );
-            }
-        }
-        
         return array(
-            'business_name' => $business_name_text,
-            'linked_business_object' => $linked_business,
-            'linked_business_data' => $business_data,
+            'business_name' => get_field('business_name', $post_id),
             'business_description' => get_field('business_description', $post_id),
             'contact_name' => get_field('contact_name', $post_id),
             'contact_email' => get_field('contact_email', $post_id),

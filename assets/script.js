@@ -12,12 +12,7 @@ jQuery(document).ready(function($) {
                 const searchInfo = $('.search-info');
                 if (searchInfo.length > 0 && searchTerm) {
                     const resultText = visibleCards === 1 ? 'result' : 'results';
-                    // Create elements instead of using innerHTML for CSP compliance
-                    const resultSpan = $('<span class="result-count"></span>').text(visibleCards + ' ' + resultText);
-                    const searchTermStrong = $('<strong></strong>').text('"' + searchTerm + '"');
-                    const clearBtn = $('<button type="button" class="clear-search-btn" data-clear-search="true">Clear Search</button>');
-                    
-                    searchInfo.empty().append(resultSpan).append(' for: ').append(searchTermStrong).append(' ').append(clearBtn);
+                    searchInfo.html('<span class="result-count">' + visibleCards + ' ' + resultText + '</span> for: <strong>"' + searchTerm + '"</strong> <button type="button" class="clear-search-btn" data-clear-search="true">Clear Search</button>');
                 }
             }, 500);
         }
@@ -48,8 +43,7 @@ jQuery(document).ready(function($) {
             const $noResults = $(".no-results");
             
             if (visibleCards === 0 && $noResults.length === 0) {
-                const noResultsP = $('<p class="no-results">No jobs match your search criteria.</p>');
-                $(".job-listings-grid").append(noResultsP);
+                $(".job-listings-grid").append("<p class=\"no-results\">No jobs match your search criteria.</p>");
             } else if (visibleCards > 0) {
                 $noResults.remove();
             }
@@ -91,22 +85,17 @@ jQuery(document).ready(function($) {
         }
     });
     
-    // Update URL when searching (CSP-safe method)
+    // Update URL when searching (optional - keeps search in browser history)
     searchInput.on("input", function() {
         const searchTerm = $(this).val();
-        try {
-            if (searchTerm) {
-                const url = new URL(window.location.href);
-                url.searchParams.set('job_search', searchTerm);
-                window.history.replaceState(null, '', url.toString());
-            } else {
-                const url = new URL(window.location.href);
-                url.searchParams.delete('job_search');
-                window.history.replaceState(null, '', url.toString());
-            }
-        } catch (e) {
-            // Fallback if URL manipulation fails
-            console.log('URL update failed:', e);
+        if (searchTerm) {
+            const url = new URL(window.location);
+            url.searchParams.set('job_search', searchTerm);
+            window.history.replaceState({}, '', url);
+        } else {
+            const url = new URL(window.location);
+            url.searchParams.delete('job_search');
+            window.history.replaceState({}, '', url);
         }
     });
     
@@ -114,28 +103,18 @@ jQuery(document).ready(function($) {
     $(document).on('click', '[data-clear-search]', function(e) {
         e.preventDefault();
         // Remove search parameter and reload
-        try {
-            const url = new URL(window.location.href);
-            url.searchParams.delete('job_search');
-            window.location.href = url.toString();
-        } catch (e) {
-            // Fallback
-            window.location.href = window.location.pathname;
-        }
+        const url = new URL(window.location);
+        url.searchParams.delete('job_search');
+        window.location.href = url.toString();
     });
     
     // Handle view all buttons (CSP-safe)
     $(document).on('click', '[data-view-all]', function(e) {
         e.preventDefault();
         // Remove search parameter and reload
-        try {
-            const url = new URL(window.location.href);
-            url.searchParams.delete('job_search');
-            window.location.href = url.toString();
-        } catch (e) {
-            // Fallback
-            window.location.href = window.location.pathname;
-        }
+        const url = new URL(window.location);
+        url.searchParams.delete('job_search');
+        window.location.href = url.toString();
     });
     
     // Enhanced functionality for single job pages
@@ -151,6 +130,27 @@ jQuery(document).ready(function($) {
         }, 200);
     });
     
+    // Add loading state styles
+    $('<style>')
+        .prop('type', 'text/css')
+        .html(`
+            .job-apply-btn.applying {
+                opacity: 0.7;
+                transform: scale(0.98);
+            }
+            
+            .job-card:hover .job-meta {
+                color: #333;
+            }
+            
+            .recent-job-item:hover {
+                background: #f9f9f9;
+                padding-left: 5px;
+                transition: all 0.3s ease;
+            }
+        `)
+        .appendTo('head');
+    
     // Add copy functionality for contact info (useful for mobile)
     if (navigator.clipboard) {
         $('.contact-value, .business-value').on('dblclick', function() {
@@ -160,13 +160,12 @@ jQuery(document).ready(function($) {
                     // Show brief success message
                     const $element = $(this);
                     const originalBg = $element.css('background-color');
-                    $element.css('background-color', '#e8f5e8');
-                    setTimeout(function() {
-                        $element.css('background-color', originalBg);
+                    $element.css('background-color', '#e8f5e8').animate({
+                        'background-color': originalBg
                     }, 1000);
-                }.bind(this));
+                });
             }
-        });
+        }.bind(this));
     }
     
     // Auto-expand job descriptions that are truncated
@@ -175,8 +174,7 @@ jQuery(document).ready(function($) {
         const text = $excerpt.text();
         
         if (text.length > 150 && text.endsWith('...')) {
-            const readMoreLink = $('<a href="#" class="read-more" style="color: #1976d2; text-decoration: none; font-weight: 500;">Read more</a>');
-            $excerpt.append(' ').append(readMoreLink);
+            $excerpt.append(' <a href="#" class="read-more" style="color: #1976d2; text-decoration: none; font-weight: 500;">Read more</a>');
         }
     });
     
@@ -191,26 +189,4 @@ jQuery(document).ready(function($) {
             window.location.href = jobUrl;
         }
     });
-    
-    // Function to hide empty blurb modules
-    function hideEmptyBlurbs() {
-        $('.et_pb_blurb').each(function() {
-            var $blurb = $(this);
-            var $container = $blurb.find('.et_pb_blurb_container');
-            
-            // Check if container is empty or contains only whitespace
-            if ($container.length && ($container.is(':empty') || $container.text().trim() === '')) {
-                $blurb.hide();
-            }
-        });
-    }
-    
-    // Run immediately
-    hideEmptyBlurbs();
-    
-    // Run again after a short delay (in case shortcodes load later)
-    setTimeout(hideEmptyBlurbs, 500);
-    
-    // Run when window loads (final safety net)
-    $(window).on('load', hideEmptyBlurbs);
 });

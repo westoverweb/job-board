@@ -72,8 +72,9 @@
 .job-card {
     background: white;
     border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
-    border: 1px solid #ddd;
+    border: 1px solid #eee;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -147,12 +148,10 @@
     text-decoration: none;
 }
 
-/* Enhanced Job Card Styles - Add to your jobs plugin style.css */
-
 .job-excerpt {
     color: #666;
     line-height: 1.6;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-size: 14px;
     flex: 1;
 }
@@ -163,7 +162,6 @@
     padding-top: 15px;
 }
 
-.job-salary,
 .job-location,
 .job-date {
     display: flex;
@@ -173,26 +171,9 @@
     color: #666;
 }
 
-.job-salary {
-    color: #4caf50;
-    font-weight: 600;
-}
-
 .meta-icon {
     margin-right: 8px;
     min-width: 20px;
-    font-size: 14px;
-}
-
-/* Mobile responsive updates */
-@media (max-width: 480px) {
-    .job-meta {
-        font-size: 13px;
-    }
-    
-    .meta-icon {
-        font-size: 12px;
-    }
 }
 
 .job-actions {
@@ -201,66 +182,51 @@
     margin-top: auto;
 }
 
-/* Updated Button Styles - Match Business Directory */
 .view-job-btn,
 .quick-apply-btn,
 .job-apply-btn,
-.job-apply-btn.email-apply,
-.job-apply-btn.phone-apply,
-.job-apply-btn.website-apply,
-.job-contact-email-btn,
 .et-db #et-boc .et-l .view-job-btn,
 .et-db #et-boc .et-l .quick-apply-btn,
-.et-db #et-boc .et-l .job-apply-btn,
-.et-db #et-boc .et-l .job-apply-btn.email-apply,
-.et-db #et-boc .et-l .job-apply-btn.phone-apply,
-.et-db #et-boc .et-l .job-apply-btn.website-apply,
-.et-db #et-boc .et-l .job-contact-email-btn {
-    background: #3f7bc0;
-    color: #fff;
-    padding: .3em 1em;
-    border-radius: 25px;
-    font-weight: 500;
-    transition: all .2s ease-in-out;
+.et-db #et-boc .et-l .job-apply-btn {
+    padding: 10px 16px;
+    border-radius: 4px;
     text-decoration: none;
     display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
     text-align: center;
     flex: 1;
 }
 
-.view-job-btn:hover,
-.quick-apply-btn:hover,
-.job-apply-btn:hover,
-.job-apply-btn.email-apply:hover,
-.job-apply-btn.phone-apply:hover,
-.job-apply-btn.website-apply:hover,
-.job-contact-email-btn:hover,
-.et-db #et-boc .et-l .view-job-btn:hover,
-.et-db #et-boc .et-l .quick-apply-btn:hover,
-.et-db #et-boc .et-l .job-apply-btn:hover,
-.et-db #et-boc .et-l .job-apply-btn.email-apply:hover,
-.et-db #et-boc .et-l .job-apply-btn.phone-apply:hover,
-.et-db #et-boc .et-l .job-apply-btn.website-apply:hover,
-.et-db #et-boc .et-l .job-contact-email-btn:hover {
-    background: rgba(63,123,192,0.8);
+.view-job-btn,
+.et-db #et-boc .et-l .view-job-btn {
+    background: #1976d2;
     color: #fff;
+}
+
+.view-job-btn:hover,
+.et-db #et-boc .et-l .view-job-btn:hover {
+    background: #1565c0;
+    color: white;
     text-decoration: none;
 }
 
-.ready-to-apply .job-apply-btn,
-.et-db #et-boc .et-l .ready-to-apply .job-apply-btn {
-    background: #333;
-    width: 100%;
-    border-radius: 4px;
-    padding: .8em 1.5em;
+.quick-apply-btn,
+.job-apply-btn,
+.et-db #et-boc .et-l .quick-apply-btn,
+.et-db #et-boc .et-l .job-apply-btn {
+    background: #4caf50;
+    color: #fff;
 }
 
-.ready-to-apply .job-apply-btn:hover,
-.et-db #et-boc .et-l .ready-to-apply .job-apply-btn:hover {
-    background: rgba(51,51,51,0.8);
-    width: 100%;
-    border-radius: 4px;
-    padding: .8em 1.5em;
+.quick-apply-btn:hover,
+.job-apply-btn:hover,
+.et-db #et-boc .et-l .quick-apply-btn:hover,
+.et-db #et-boc .et-l .job-apply-btn:hover {
+    background: #45a049;
+    color: white;
+    text-decoration: none;
 }
 
 .no-results {
@@ -645,82 +611,17 @@
     padding: 15px;
 }
 
-/* Business Profile Button - Black Outline Style */
-.job-business-profile-btn,
-.et-db #et-boc .et-l .job-business-profile-btn {
-    background: transparent;
-    color: #333;
-    border: 1px solid #ccc;
-    padding: .8em 1.5em;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: all .2s ease-in-out;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-    width: 100%;
-    box-sizing: border-box;
+/* Apply Button Styles */
+.job-apply-btn.email-apply {
+    background: #1976d2;
 }
 
-.job-business-profile-btn:hover,
-.et-db #et-boc .et-l .job-business-profile-btn:hover {
-    background: #e3f2fd;
-    text-decoration: none;
+.job-apply-btn.phone-apply {
+    background: #4caf50;
 }
 
-.job-business-profile-container {
-    width: 100%;
-}
-
-.job-business-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.job-business-logo-container {
-    flex-shrink: 0;
-}
-
-.job-business-logo {
-    width: 64px !important;
-    height: 64px !important;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.job-business-header .job-business-name,
-.job-business-header a {
-    font-size: 1.2em;
-    font-weight: 600;
-    color: #333;
-    text-decoration: none;
-    margin: 0;
-    line-height: 1.3;
-}
-
-.job-business-header a:hover {
-    color: #1976d2;
-    text-decoration: none;
-}
-
-/* Mobile responsive */
-@media (max-width: 480px) {
-    .job-business-header {
-        gap: 12px;
-    }
-    
-    .job-business-logo {
-        width: 48px !important;
-        height: 48px !important;
-    }
-    
-    .job-business-header .job-business-name,
-    .job-business-header a {
-        font-size: 1.1em;
-    }
+.job-apply-btn.website-apply {
+    background: #ff9800;
 }
 
 /* Mobile Responsive */

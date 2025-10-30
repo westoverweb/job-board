@@ -278,32 +278,6 @@ class ChelseaJobs_Admin {
                 <h2>Single Job Page Shortcodes</h2>
                 <p>Use these shortcodes on individual job listing pages in Divi modules:</p>
                 
-                <h3>Job Description</h3>
-                <code>[job_description]</code>
-                
-                <h4>Available Parameters:</h4>
-                <table class="widefat">
-                    <thead>
-                        <tr>
-                            <th>Parameter</th>
-                            <th>Default</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>word_limit</code></td>
-                            <td></td>
-                            <td>Limit number of words (e.g., 100)</td>
-                        </tr>
-                        <tr>
-                            <td><code>show_title</code></td>
-                            <td>true</td>
-                            <td>Show "Job Description" heading (true/false)</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
                 <h3>Job Contact Information</h3>
                 <code>[job_contact_info]</code>
                 
@@ -349,24 +323,9 @@ class ChelseaJobs_Admin {
                             <td>Show website link (true/false)</td>
                         </tr>
                         <tr>
-                            <td><code>show_logo</code></td>
+                            <td><code>show_address</code></td>
                             <td>true</td>
-                            <td>Show business logo (true/false)</td>
-                        </tr>
-                        <tr>
-                            <td><code>show_phone</code></td>
-                            <td>true</td>
-                            <td>Show business phone (true/false)</td>
-                        </tr>
-                        <tr>
-                            <td><code>show_email</code></td>
-                            <td>false</td>
-                            <td>Show business email (true/false)</td>
-                        </tr>
-                        <tr>
-                            <td><code>link_to_business</code></td>
-                            <td>true</td>
-                            <td>Link to business profile (true/false)</td>
+                            <td>Show business address (true/false)</td>
                         </tr>
                     </tbody>
                 </table>
@@ -437,51 +396,7 @@ class ChelseaJobs_Admin {
             </div>
             
             <div class="card">
-                <h2>ACF Field Setup & Business Relationship</h2>
-                <p>The plugin requires these ACF field names for job listings:</p>
-                <ul>
-                    <li><strong>Business Name:</strong> 'business_name'</li>
-                    <li><strong>Business Description:</strong> 'business_description'</li>
-                    <li><strong>Contact Name:</strong> 'contact_name'</li>
-                    <li><strong>Contact Email:</strong> 'contact_email'</li>
-                    <li><strong>Contact Phone:</strong> 'contact_phone'</li>
-                    <li><strong>Business Address:</strong> 'business_office_address'</li>
-                    <li><strong>Business Website:</strong> 'business_website'</li>
-                    <li><strong>Linked Business:</strong> 'linked_business' (ACF Relationship field)</li>
-                </ul>
-                
-                <h3>Recommended: ACF Relationship Field</h3>
-                <p>Add a <strong>Relationship</strong> field to your Job Listing field group:</p>
-                <div style="background: #f0f8ff; padding: 15px; border-left: 4px solid #1976d2; margin: 15px 0;">
-                    <h4>Field Settings:</h4>
-                    <p><strong>Field Label:</strong> Linked Business<br>
-                    <strong>Field Name:</strong> linked_business<br>
-                    <strong>Field Type:</strong> Relationship<br>
-                    <strong>Post Type:</strong> Business Listing<br>
-                    <strong>Return Format:</strong> Post Object<br>
-                    <strong>Max Posts:</strong> 1</p>
-                </div>
-                
-                <h3>Benefits of Using Relationship Field:</h3>
-                <ul>
-                    <li>✅ Automatically pulls business data (logo, description, contact info)</li>
-                    <li>✅ Links job to business profile page</li>
-                    <li>✅ Maintains data consistency</li>
-                    <li>✅ Easier data management</li>
-                    <li>✅ Better for your approval workflow</li>
-                </ul>
-                
-                <h3>Workflow with Relationship Field:</h3>
-                <ol>
-                    <li>Business submits listing → gets approved → goes live</li>
-                    <li>Same business submits job → you link it to their business listing</li>
-                    <li>Job automatically shows business info from their profile</li>
-                    <li>Changes to business listing automatically update job displays</li>
-                </ol>
-            </div>
-            
-            <div class="card">
-                <h2>ACF Field Mapping (Legacy Support)</h2>
+                <h2>ACF Field Mapping</h2>
                 <p>The plugin automatically reads these ACF field names:</p>
                 <ul>
                     <li><strong>Business Name:</strong> 'business_name'</li>
