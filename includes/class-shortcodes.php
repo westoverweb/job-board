@@ -511,8 +511,7 @@ class ChelseaJobs_Shortcodes {
 
         ob_start();
 
-        if (!empty($button_url)) {
-            // Display apply button with disclaimer
+        if (!empty($button_url)):
             ?>
             <div class="job-apply-section">
                 <a href="<?php echo esc_url($button_url); ?>" class="<?php echo esc_attr($button_class); ?>">
@@ -521,8 +520,7 @@ class ChelseaJobs_Shortcodes {
                 <p class="apply-disclaimer">Clicking apply will redirect you to the employer's application page.</p>
             </div>
             <?php
-        } else {
-            // No apply link available - show fallback messaging
+        else:
             ?>
             <div class="job-apply-section no-online-apply">
                 <?php if ($job_fields['contact_phone']): ?>
@@ -547,7 +545,7 @@ class ChelseaJobs_Shortcodes {
                 <?php endif; ?>
             </div>
             <?php
-        }
+        endif;
 
         return ob_get_clean();
     }
