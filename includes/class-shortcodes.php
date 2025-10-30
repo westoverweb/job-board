@@ -485,7 +485,7 @@ class ChelseaJobs_Shortcodes {
 
         $button_url = '';
         $button_class = 'job-apply-btn';
-        
+
         switch ($atts['style']) {
             case 'phone':
                 if ($job_fields['contact_phone']) {
@@ -509,11 +509,47 @@ class ChelseaJobs_Shortcodes {
                 break;
         }
 
-        if (empty($button_url)) {
-            return '';
+        ob_start();
+
+        if (!empty($button_url)) {
+            // Display apply button with disclaimer
+            ?>
+            <div class="job-apply-section">
+                <a href="<?php echo esc_url($button_url); ?>" class="<?php echo esc_attr($button_class); ?>">
+                    <?php echo esc_html($atts['text']); ?>
+                </a>
+                <p class="apply-disclaimer">Clicking apply will redirect you to the employer's application page.</p>
+            </div>
+            <?php
+        } else {
+            // No apply link available - show fallback messaging
+            ?>
+            <div class="job-apply-section no-online-apply">
+                <?php if ($job_fields['contact_phone']): ?>
+                    <div class="apply-fallback">
+                        <p class="apply-method-label">To apply for this position:</p>
+                        <p class="apply-phone">
+                            <strong>Call:</strong>
+                            <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $job_fields['contact_phone'])); ?>">
+                                <?php echo esc_html($job_fields['contact_phone']); ?>
+                            </a>
+                        </p>
+                    </div>
+                <?php else: ?>
+                    <div class="apply-fallback">
+                        <p class="apply-in-person"><strong>Apply in Person</strong></p>
+                        <?php if ($job_fields['business_office_address']): ?>
+                            <p class="apply-address">
+                                <?php echo esc_html($job_fields['business_office_address']); ?>
+                            </p>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <?php
         }
 
-        return '<a href="' . esc_url($button_url) . '" class="' . esc_attr($button_class) . '">' . esc_html($atts['text']) . '</a>';
+        return ob_get_clean();
     }
     
     /**
